@@ -32,8 +32,8 @@
                                 <thead>
                                 <tr>
                                     @foreach($departments as $department)
-                                    <th class="w-1"></th>
-                                    <th>{{ $department->name }}</th>
+                                        <th class="w-1"></th>
+                                        <th>{{ $department->name }}</th>
                                     @endforeach
                                 </tr>
                                 </thead>
@@ -41,10 +41,16 @@
                                 @foreach($workers as $worker)
                                 <tr>
                                     <td><span class="text-muted">{{ $worker->name. ' ' . $worker->last_name}}</span></td>
-                                    <td></td>
-                                    <td>&#10003;</td>
-                                    <td></td>
-                                    <td></td>
+                                    @foreach($worker->departments as $department)
+                                        @foreach($departments as $department_name)
+                                            @if($department_name->name == $department->name)
+                                                <td>&#10003;</td>
+                                            @endif
+                                        @endforeach
+                                    @endforeach
+                                    {{--<td>&#10003;</td>--}}
+                                    {{--<td></td>--}}
+                                    {{--<td></td>--}}
                                 </tr>
                                 @endforeach
                                 </tbody>

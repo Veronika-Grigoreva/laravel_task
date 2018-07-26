@@ -32,7 +32,7 @@
                                 <h3 class="card-title">Отделы</h3>
                             </div>
                             <div class="col-md-3 text-right">
-                                <a href="{{ url('/add/depart') }}" class="btn btn-primary">Добавить отдел</a>
+                                <a href="{{ url('/depart/create') }}" class="btn btn-primary">Добавить отдел</a>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -49,16 +49,12 @@
                                 @foreach($departments as $department)
                                 <tr>
                                     <td>{{ $department->name }}</td>
-                                    <td>
-                                    @foreach($department->workers as $worker)
-                                            {{ count($worker->name) }}
-                                    @endforeach
-                                    </td>
-                                    <td>Carlson Limited</td>
+                                    <td>{{ count($department->workers) }}</td>
+                                    <td>{{ $department->maxSalary }}</td>
                                     <td class="text-right">
-                                        <a href="{{ url('edit/depart/4') }}" class="btn btn-primary">Редактировать</a>
+                                        <a href="{{ url('depart/edit' , [$department->id]) }}" class="btn btn-primary">Редактировать</a>
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary" data-toggle="dropdown">Удалить</button>
+                                            <a href="{{ url('depart/destroy', [$department->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
                                         </div>
                                     </td>
                                 </tr>

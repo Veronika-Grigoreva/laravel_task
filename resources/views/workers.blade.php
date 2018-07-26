@@ -32,7 +32,7 @@
                                 <h3 class="card-title">Сотрудники</h3>
                             </div>
                             <div class="col-md-3 text-right">
-                                <a href="{{ url('/add/worker') }}" class="btn btn-primary">Добавить сотрудника</a>
+                                <a href="{{ url('/worker/create') }}" class="btn btn-primary">Добавить сотрудника</a>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -54,20 +54,13 @@
                                     <td>{{ $worker->name }}</td>
                                     <td>{{ $worker->last_name }}</td>
                                     <td>{{ $worker->third_name }}</td>
-                                        @if($worker->sex == 1)
-                                        <td>{{ $male }}</td>
-                                        @else
-                                        <td>{{ $female }}</td>
-                                        @endif
+                                    <td>{{ $sex[$worker->sex] }}</td>
                                     <td>{{ $worker->salary }}</td>
-                                     <td>
-                                     @foreach($worker->departments as $department)
-                                         @endforeach
-                                     </td>
-                                     <td class="text-right">
-                                        <a href="{{ url('/edit/worker/1') }}" class="btn btn-primary">Редактировать</a>
+                                    <td>{{ $worker->departmentsList }}</td>
+                                    <td class="text-right">
+                                        <a href="{{ url('/worker/edit', [$worker->id]) }}" class="btn btn-primary">Редактировать</a>
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary" data-toggle="dropdown">Удалить</button>
+                                            <a href="{{ url('/worker/destroy', [$worker->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
                                         </div>
                                     </td>
                                 </tr>

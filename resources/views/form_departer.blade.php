@@ -4,7 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <form action="#" method="post" class="card">
+                    <form action="{{ url('/depart/save') }}" method="post" class="card">
+                        {{ csrf_field() }}
+                        @if(isset($departament))
+                            <input type="hidden" name="id" value="{{ $departament->id }}">
+                        @endif
                         <div class="card-header">
                             <h3 class="card-title">{{ $title }}</h3>
                         </div>
@@ -13,7 +17,11 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Название отдела<span class="form-required">*</span></label>
-                                        <input type="text" class="form-control" name="example-text-input" placeholder="Название отдела" required>
+                                        @if(isset($departament))
+                                            <input type="text" class="form-control" name="name" placeholder="Название отдела" required value="{{ $departament->name }}">
+                                        @else
+                                            <input type="text" class="form-control" name="name" placeholder="Название отдела" required>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-12">

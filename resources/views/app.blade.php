@@ -16,7 +16,21 @@
                 src="{{ asset('js/core.js') }}"></script>
     </head>
     <body>
+
+        <div class="container">
+            @if(Session::has('flash_message'))
+                <div class="alert alert-success {{ Session::has('flash_message_important') ? 'alert-important' : '' }} col-lg-9">
+                    {{ Session::get('flash_message') }}
+                </div>
+            @endif
+        </div>
+
     @yield('navigation')
     @yield('content')
+
+    <script>
+        $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+    </script>
+
     </body>
 </html>
