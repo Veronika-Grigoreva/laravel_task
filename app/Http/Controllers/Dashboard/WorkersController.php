@@ -54,6 +54,10 @@ class WorkersController extends Controller
      */
     public function save(Request $request)
     {
+        $this->validate($request, [
+           'salary' => 'int',
+        ]);
+
         if ($request->id) {
             $worker = Worker::find($request->id);
         } else {
@@ -76,7 +80,13 @@ class WorkersController extends Controller
      */
     public function edit($id)
     {
-        $worker = Worker::findOrFail($id);
+        $worker = Worker::find($id);
+
+        if (!$worker) {
+            \Session::flash('flash_message_error', 'Такого сотрудника не существует!');
+
+            return redirect('/worker');
+        }
         $departaments = Department::all();
 
         $departmentsIds = [];

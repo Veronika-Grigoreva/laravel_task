@@ -35,33 +35,37 @@
                                 <a href="{{ url('/depart/create') }}" class="btn btn-primary">Добавить отдел</a>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>Название отдела</th>
-                                    <th>Количество сотрудников</th>
-                                    <th>Максимальная з/п среди сотрудников</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($departments as $department)
-                                <tr>
-                                    <td>{{ $department->name }}</td>
-                                    <td>{{ count($department->workers) }}</td>
-                                    <td>{{ $department->maxSalary }}</td>
-                                    <td class="text-right">
-                                        <a href="{{ url('depart/edit' , [$department->id]) }}" class="btn btn-primary">Редактировать</a>
-                                        <div class="dropdown">
-                                            <a href="{{ url('depart/destroy', [$department->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @if($departments->isEmpty())
+                            <p class="text-muted col-lg-12" style="text-align: center">У вас еще нет отделов</p>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                    <tr>
+                                        <th>Название отдела</th>
+                                        <th>Количество сотрудников</th>
+                                        <th>Максимальная з/п среди сотрудников</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                        @foreach($departments as $department)
+                                        <tr>
+                                            <td>{{ $department->name }}</td>
+                                            <td>{{ count($department->workers) }}</td>
+                                            <td>{{ $department->maxSalary }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ url('depart/edit' , [$department->id]) }}" class="btn btn-primary">Редактировать</a>
+                                                <div class="dropdown">
+                                                    <a href="{{ url('depart/destroy', [$department->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                        </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

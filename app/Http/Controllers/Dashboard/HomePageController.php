@@ -18,11 +18,21 @@ class HomePageController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        $departaments = Department::all();
         $workers = Worker::all();
 
+        foreach ($workers as $worker) {
+            $departName = [];
+
+            foreach ($worker->departments as $department) {
+                $departName[] = $department->name;
+
+            }
+            $worker->departName = $departName;
+        }
+
         return view('index', [
-            'departments' => $departments,
+            'departaments' => $departaments,
             'workers' => $workers
         ]);
     }

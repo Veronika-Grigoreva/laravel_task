@@ -27,35 +27,38 @@
             <div class="row row-cards row-deck">
                 <div class="col-12">
                     <div class="card">
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap">
-                                <thead>
-                                <tr>
-                                    @foreach($departments as $department)
+                        @if($departaments->isEmpty() && $workers->isEmpty())
+                            <div class="card-header">
+                                <p class="text-muted col-lg-12" style="text-align: center">Добавьте сотрудников и отделы</p>
+                            </div>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                    <tr>
                                         <th class="w-1"></th>
-                                        <th>{{ $department->name }}</th>
-                                    @endforeach
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($workers as $worker)
-                                <tr>
-                                    <td><span class="text-muted">{{ $worker->name. ' ' . $worker->last_name}}</span></td>
-                                    @foreach($worker->departments as $department)
-                                        @foreach($departments as $department_name)
-                                            @if($department_name->name == $department->name)
-                                                <td>&#10003;</td>
-                                            @endif
+                                        @foreach($departaments as $departament)
+                                            <th style="text-align: center">{{ $departament->name }}</th>
                                         @endforeach
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($workers as $worker)
+                                    <tr>
+                                        <td><span class="text-muted">{{ $worker->name. ' ' . $worker->last_name}}</span></td>
+                                        @foreach($departaments as $departament)
+                                                @if(!empty($worker->departName) && in_array($departament->name, $worker->departName))
+                                                    <td style="text-align: center">&#10003;</td>
+                                                @else
+                                                    <td></td>
+                                                @endif
+                                        @endforeach
+                                    </tr>
                                     @endforeach
-                                    {{--<td>&#10003;</td>--}}
-                                    {{--<td></td>--}}
-                                    {{--<td></td>--}}
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

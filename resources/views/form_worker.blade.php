@@ -2,6 +2,16 @@
 @section('content')
     <div class="my-3 my-md-5">
         <div class="container">
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Упс, что-то пошло не так!</strong><br>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12">
                     <form action="{{ url('/worker/save') }}" method="post" class="card">

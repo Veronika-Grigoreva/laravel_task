@@ -53,7 +53,6 @@ class DepartamentsController extends Controller
      */
     public function save(Request $request)
     {
-
         if ($request->id) {
             $departament = Department::find($request->id);
         } else {
@@ -74,7 +73,13 @@ class DepartamentsController extends Controller
      */
     public function edit($id)
     {
-        $departament = Department::findOrFail($id);
+        $departament = Department::find($id);
+
+        if (!$departament) {
+            \Session::flash('flash_message_error', 'Такого отдела не существует!');
+
+            return redirect('/depart');
+        }
 
         return view('form_departer', [
             'title' => 'Редактирование отдела',
@@ -89,9 +94,15 @@ class DepartamentsController extends Controller
      */
     public function destroy($id)
     {
-        Department::find($id)->delete();
+        $departaments = Department::find($id);
 
-        \Session::flash('flash_message', 'Отдел успешно удален!');
+        if (count($departaments->workers) > 0) {
+            \Session::flash('flash_message_warning', 'Нельзя удалить отдел!');
+        } else {
+            $departaments->delete();
+
+            \Session::flash('flash_message', 'Отдел успешно удален!');
+        }
 
         return redirect('/depart');
     }

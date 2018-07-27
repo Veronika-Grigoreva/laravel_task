@@ -19,8 +19,16 @@
 
         <div class="container">
             @if(Session::has('flash_message'))
-                <div class="alert alert-success {{ Session::has('flash_message_important') ? 'alert-important' : '' }} col-lg-9">
-                    {{ Session::get('flash_message') }}
+                <div class="alert alert-success {{ Session::has('flash_message_important') ? 'alert-important' : '' }} col-lg-12">
+                    <strong>{{ Session::get('flash_message') }}</strong>
+                </div>
+            @elseif(Session::has('flash_message_error'))
+                <div class="alert alert-danger {{ Session::has('flash_message_important') ? 'alert-important' : '' }} col-lg-12">
+                    <strong>{{ Session::get('flash_message_error') }}</strong>
+                </div>
+            @elseif(Session::has('flash_message_warning'))
+                <div class="alert alert-warning {{ Session::has('flash_message_important') ? 'alert-important' : '' }} col-lg-12">
+                    <strong>{{ Session::get('flash_message_warning') }}</strong>
                 </div>
             @endif
         </div>
@@ -29,7 +37,7 @@
     @yield('content')
 
     <script>
-        $('div.alert').not('.alert-important').delay(3000).slideUp(300);
+        $('div.alert').not('.alert-important').delay(7000).slideUp(300);
     </script>
 
     </body>

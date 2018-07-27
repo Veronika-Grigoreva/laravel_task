@@ -35,39 +35,43 @@
                                 <a href="{{ url('/worker/create') }}" class="btn btn-primary">Добавить сотрудника</a>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table class="table card-table table-vcenter text-nowrap">
-                                <thead>
-                                <tr>
-                                    <th>Имя</th>
-                                    <th>Фамилия</th>
-                                    <th>Отчество</th>
-                                    <th>Пол</th>
-                                    <th>Заработная плата</th>
-                                    <th>Отделы, в которых работает сотрудник</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($workers as $worker)
-                                 <tr>
-                                    <td>{{ $worker->name }}</td>
-                                    <td>{{ $worker->last_name }}</td>
-                                    <td>{{ $worker->third_name }}</td>
-                                    <td>{{ $sex[$worker->sex] }}</td>
-                                    <td>{{ $worker->salary }}</td>
-                                    <td>{{ $worker->departmentsList }}</td>
-                                    <td class="text-right">
-                                        <a href="{{ url('/worker/edit', [$worker->id]) }}" class="btn btn-primary">Редактировать</a>
-                                        <div class="dropdown">
-                                            <a href="{{ url('/worker/destroy', [$worker->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                        @if($workers->isEmpty())
+                            <p class="text-muted col-lg-12" style="text-align: center">У вас еще нет сотрудников</p>
+                        @else
+                            <div class="table-responsive">
+                                <table class="table card-table table-vcenter text-nowrap">
+                                    <thead>
+                                    <tr>
+                                       <th>Имя</th>
+                                       <th>Фамилия</th>
+                                       <th>Отчество</th>
+                                       <th>Пол</th>
+                                       <th>Заработная плата</th>
+                                       <th>Отделы, в которых работает сотрудник</th>
+                                       <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($workers as $worker)
+                                     <tr>
+                                        <td>{{ $worker->name }}</td>
+                                        <td>{{ $worker->last_name }}</td>
+                                        <td>{{ $worker->third_name }}</td>
+                                        <td>{{ $sex[$worker->sex] }}</td>
+                                        <td>{{ $worker->salary }}</td>
+                                        <td>{{ $worker->departmentsList }}</td>
+                                        <td class="text-right">
+                                            <a href="{{ url('/worker/edit', [$worker->id]) }}" class="btn btn-primary">Редактировать</a>
+                                            <div class="dropdown">
+                                                <a href="{{ url('/worker/destroy', [$worker->id]) }}" class="btn btn-secondary" data-toggle="dropdown">Удалить</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
